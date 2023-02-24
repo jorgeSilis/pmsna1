@@ -1,0 +1,31 @@
+class _MyAppState extends State<MyApp> {
+  int contador = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('Hola Mundito'),
+        ),
+        body: Center(
+          child: ListView(
+            shrinkWrap: true,
+            children:[
+              Text('$contador', textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 25),),
+              Text('Contador de clicks', 
+              textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 25),),
+            ],
+          )),
+            floatingActionButton: FloatingActionButton(
+              child: const Icon(Icons.ads_click),
+              onPressed: () { contador++; print('valor del contador  $contador');
+              setState(() {});
+              },
+            ),
+        )
+    );
+  }
+}
