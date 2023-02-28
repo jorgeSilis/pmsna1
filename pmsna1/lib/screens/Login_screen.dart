@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/responsive.dart';
 import 'package:flutter_application_1/widgets/loading_modal_widget.dart';
 import 'package:social_login_buttons/social_login_buttons.dart';
 
@@ -26,7 +27,6 @@ class _LoginScreenState extends State<LoginScreen> {
     height: 10,
   );
 
-  
   final googlebtn = SocialLoginButton(
     buttonType: SocialLoginButtonType.twitter,
     onPressed: () {},
@@ -61,12 +61,11 @@ class _LoginScreenState extends State<LoginScreen> {
       onPressed: () {
         isLoading = true;
         setState(() {});
-        Future.delayed(Duration(milliseconds: 4000)).then((value){
-            isLoading = false;
-            setState(() {});
-            Navigator.pushNamed(context, '/dash');
+        Future.delayed(Duration(milliseconds: 4000)).then((value) {
+          isLoading = false;
+          setState(() {});
+          Navigator.pushNamed(context, '/dash');
         });
-        
       },
     );
 
@@ -79,38 +78,114 @@ class _LoginScreenState extends State<LoginScreen> {
                 image: DecorationImage(
                     opacity: .5,
                     fit: BoxFit.cover,
-                    image: AssetImage('assets/itc_esc.jpg'))),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Stack(
-                alignment: Alignment.topCenter,
-                children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
+                    image: AssetImage('assets/itc_esc.jpg'))),),
+             Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              //safe area, creamos nuestra vista para web
+              child: SafeArea(
+                child: Responsive(
+                  mobile: MobileWelcomeScreen(txtEmail: txtEmail, horizontalSpace: horizontalSpace, txtPass: txtPass, buttonlogging: buttonlogging, googlebtn: googlebtn, btnGithub: btnGithub, txtRegister: txtRegister, imgLogo: imgLogo),
+                  desktop: Row(
                     children: [
-                      txtEmail,
-                      horizontalSpace,
-                      txtPass,
-                      horizontalSpace,
-                      buttonlogging,
-                      horizontalSpace,
-                      googlebtn,
-                      horizontalSpace,
-                      btnGithub,
-                      txtRegister
+                      Expanded(child: imgLogo),
+                      Expanded(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            ButtonsLoginRegister(txtEmail: txtEmail, horizontalSpace: horizontalSpace, txtPass: txtPass, buttonlogging: buttonlogging, googlebtn: googlebtn, btnGithub: btnGithub, txtRegister: txtRegister),
+                          ],
+                        ),)
                     ],
                   ),
-                  Positioned(
-                    top: 100,
-                    child: imgLogo,
-                  )
-                ],
+                ),
               ),
             ),
-          ),
+          
           isLoading ? const LoadingModalWidget() : Container()
         ],
       ),
+    );
+  }
+}
+
+class MobileWelcomeScreen extends StatelessWidget {
+  const MobileWelcomeScreen({
+    super.key,
+    required this.txtEmail,
+    required this.horizontalSpace,
+    required this.txtPass,
+    required this.buttonlogging,
+    required this.googlebtn,
+    required this.btnGithub,
+    required this.txtRegister,
+    required this.imgLogo,
+  });
+
+  final TextFormField txtEmail;
+  final SizedBox horizontalSpace;
+  final TextFormField txtPass;
+  final SocialLoginButton buttonlogging;
+  final SocialLoginButton googlebtn;
+  final SocialLoginButton btnGithub;
+  final Padding txtRegister;
+  final Image imgLogo;
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            ButtonsLoginRegister(txtEmail: txtEmail, horizontalSpace: horizontalSpace, txtPass: txtPass, buttonlogging: buttonlogging, googlebtn: googlebtn, btnGithub: btnGithub, txtRegister: txtRegister),
+          ],
+        ),
+        Positioned(
+          top: 85,
+          child: imgLogo,
+        )
+      ],
+    );
+  }
+}
+
+class ButtonsLoginRegister extends StatelessWidget {
+  const ButtonsLoginRegister({
+    super.key,
+    required this.txtEmail,
+    required this.horizontalSpace,
+    required this.txtPass,
+    required this.buttonlogging,
+    required this.googlebtn,
+    required this.btnGithub,
+    required this.txtRegister,
+  });
+
+  final TextFormField txtEmail;
+  final SizedBox horizontalSpace;
+  final TextFormField txtPass;
+  final SocialLoginButton buttonlogging;
+  final SocialLoginButton googlebtn;
+  final SocialLoginButton btnGithub;
+  final Padding txtRegister;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      //mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        txtEmail,
+        horizontalSpace,
+        txtPass,
+        horizontalSpace,
+        buttonlogging,
+        horizontalSpace,
+        googlebtn,
+        horizontalSpace,
+        btnGithub,
+        txtRegister
+      ],
     );
   }
 }

@@ -42,6 +42,7 @@ dependencies:
   sqflite: ^2.2.4+1
   image_picker: ^0.8.6+3
   email_validator: '^2.1.16'
+  path_provider: ^2.0.13
 
 
 dev_dependencies:
