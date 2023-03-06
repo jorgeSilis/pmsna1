@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/provider/theme_provider.dart';
 import 'package:flutter_application_1/routes.dart';
-import 'package:flutter_application_1/screens/login_screen.dart';
+import 'package:flutter_application_1/screens/onboarding_page.dart';
 import 'package:provider/provider.dart';
 
 void main() => runApp(MyApp());
@@ -21,16 +21,18 @@ class MyApp extends StatelessWidget {
 }
 
 class PMSNApp extends StatelessWidget {
-  const PMSNApp({super.key});
-
+  const PMSNApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    
-  ThemeProvider theme = Provider.of<ThemeProvider>(context);
+    final themeProvider = Provider.of<ThemeProvider>(context);
+    final themeData = themeProvider.getThemeData();
+
     return MaterialApp(
-        theme: theme.getThemeData(),
-        routes: getApplicationRoutes(), home: const LoginScreen());
+      theme: themeData,
+      routes: getApplicationRoutes(),
+      home: OnboardingPage(),
+    );
   }
 }
 

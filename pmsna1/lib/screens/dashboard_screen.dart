@@ -43,8 +43,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
             ),
            DayNightSwitcher(isDarkModeEnabled: isDarkModeEnabled, onStateChanged: (isDarkModeEnabled) {
               isDarkModeEnabled
-              ? theme.setThemeData(StylesSettings.darkTheme(context))
-              : theme.setThemeData(StylesSettings.lightTheme(context));
+              ? theme.setThemeData('dark',context)
+              : theme.setThemeData('light',context);
              this.isDarkModeEnabled = isDarkModeEnabled;
              setState(() {});
            },)

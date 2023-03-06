@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/responsive.dart';
+import 'package:flutter_application_1/screens/settings_screen.dart';
 import 'package:flutter_application_1/widgets/loading_modal_widget.dart';
 import 'package:social_login_buttons/social_login_buttons.dart';
 
@@ -70,7 +71,17 @@ class _LoginScreenState extends State<LoginScreen> {
     );
 
     return Scaffold(
-      resizeToAvoidBottomInset: true,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => SettingsScreen()),
+          );
+        },
+        child: Icon(Icons.settings),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.miniStartTop,
+      resizeToAvoidBottomInset: false,
       body: Stack(
         children: [
           Container(
@@ -78,29 +89,69 @@ class _LoginScreenState extends State<LoginScreen> {
                 image: DecorationImage(
                     opacity: .5,
                     fit: BoxFit.cover,
-                    image: AssetImage('assets/itc_esc.jpg'))),),
-             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              //safe area, creamos nuestra vista para web
-              child: SafeArea(
-                child: Responsive(
-                  mobile: MobileWelcomeScreen(txtEmail: txtEmail, horizontalSpace: horizontalSpace, txtPass: txtPass, buttonlogging: buttonlogging, googlebtn: googlebtn, btnGithub: btnGithub, txtRegister: txtRegister, imgLogo: imgLogo),
-                  desktop: Row(
+                    image: AssetImage('assets/itc_esc.jpg'))),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            //safe area, creamos nuestra vista para web
+            child: SafeArea(
+              child: Responsive(
+                mobile: MobileWelcomeScreen(
+                    txtEmail: txtEmail,
+                    horizontalSpace: horizontalSpace,
+                    txtPass: txtPass,
+                    buttonlogging: buttonlogging,
+                    googlebtn: googlebtn,
+                    btnGithub: btnGithub,
+                    txtRegister: txtRegister,
+                    imgLogo: imgLogo),
+                desktop: Row(
+                  children: [
+                    Expanded(child: imgLogo),
+                    Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          ButtonsLoginRegister(
+                              txtEmail: txtEmail,
+                              horizontalSpace: horizontalSpace,
+                              txtPass: txtPass,
+                              buttonlogging: buttonlogging,
+                              googlebtn: googlebtn,
+                              btnGithub: btnGithub,
+                              txtRegister: txtRegister),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+                tablet: Center(
+                  child: Row(
                     children: [
                       Expanded(child: imgLogo),
                       Expanded(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                        child: Row(
                           children: [
-                            ButtonsLoginRegister(txtEmail: txtEmail, horizontalSpace: horizontalSpace, txtPass: txtPass, buttonlogging: buttonlogging, googlebtn: googlebtn, btnGithub: btnGithub, txtRegister: txtRegister),
+                            SizedBox(
+                                width: 350,
+                                child: SingleChildScrollView(
+                                    child: ButtonsLoginRegister(
+                                        txtEmail: txtEmail,
+                                        horizontalSpace: horizontalSpace,
+                                        txtPass: txtPass,
+                                        buttonlogging: buttonlogging,
+                                        googlebtn: googlebtn,
+                                        btnGithub: btnGithub,
+                                        txtRegister: txtRegister))),
                           ],
-                        ),)
+                        ),
+                      )
                     ],
                   ),
                 ),
               ),
             ),
-          
+          ),
           isLoading ? const LoadingModalWidget() : Container()
         ],
       ),
@@ -138,7 +189,14 @@ class MobileWelcomeScreen extends StatelessWidget {
         Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            ButtonsLoginRegister(txtEmail: txtEmail, horizontalSpace: horizontalSpace, txtPass: txtPass, buttonlogging: buttonlogging, googlebtn: googlebtn, btnGithub: btnGithub, txtRegister: txtRegister),
+            ButtonsLoginRegister(
+                txtEmail: txtEmail,
+                horizontalSpace: horizontalSpace,
+                txtPass: txtPass,
+                buttonlogging: buttonlogging,
+                googlebtn: googlebtn,
+                btnGithub: btnGithub,
+                txtRegister: txtRegister),
           ],
         ),
         Positioned(
