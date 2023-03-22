@@ -23,7 +23,8 @@ class DatabaseHelper {
   _initDatabase() async{
     Directory folder = await getApplicationDocumentsDirectory();
     String pathDB = join(folder.path,nameDB);
-    await openDatabase(
+    print(pathDB);
+    return await openDatabase(
       pathDB,
       version: versionDB,
       onCreate: _createTables,
@@ -35,12 +36,12 @@ class DatabaseHelper {
     String query='''CREATE TABLE tblPost (
         idPost INTEGER PRIMARY KEY,
         descPost VARCHAR(200),
-        datePost DATE,
-      )''';
+        datePost DATE
+      );''';
       db.execute(query);
   }
 
-  INSERT(String tblName, Map<String,dynamic> data) async{
+  Future<int> INSERT(String tblName, Map<String,dynamic> data) async{
     var conexion = await database;
     return conexion.insert(tblName, data);
   }

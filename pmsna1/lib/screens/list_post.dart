@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/database/database_helper.dart';
 
 import '../models/post_model.dart';
+import '../widgets/item_post_widget.dart';
 
 class ListPost extends StatefulWidget {
   const ListPost({super.key});
@@ -24,6 +25,8 @@ class _ListPostState extends State<ListPost> {
   }
   @override
   Widget build(BuildContext context) {
+    return ItemPostWidget();
+    /*
     return FutureBuilder(
       future: database!.GETALLPOST(),
       builder: (context, AsyncSnapshot<List<PostModel>> snapshot) {
@@ -32,7 +35,7 @@ class _ListPostState extends State<ListPost> {
             itemCount: snapshot.data!.length,
             itemBuilder: (context, index) {
               var objPostModel = snapshot.data![index];
-              return Container();
+              return ItemPostWidget(objPostModel:objPostModel);
             },
           );
         }else if(snapshot.hasError){
@@ -43,6 +46,6 @@ class _ListPostState extends State<ListPost> {
           return Center(child: CircularProgressIndicator(),);
         }
       },
-    );
+    );*/
   }
 }
