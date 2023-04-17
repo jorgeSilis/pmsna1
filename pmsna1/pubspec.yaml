@@ -46,8 +46,14 @@ dependencies:
   concentric_transition: ^1.0.3
   lottie: ^2.2.0
   shared_preferences: ^2.0.18
+  calendar_view: ^1.0.3
   http: ^0.13.5
-
+  placeholder_images: ^0.0.1
+  firebase_auth: ^4.3.0
+  firebase_core: ^2.8.0
+  flutter_rating_bar: ^4.0.1
+  youtube_player_flutter: ^8.1.2
+  cached_network_image: ^3.2.3
 
 
 dev_dependencies:

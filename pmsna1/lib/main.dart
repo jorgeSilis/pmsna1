@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/provider/flags_provider.dart';
 import 'package:flutter_application_1/provider/theme_provider.dart';
 import 'package:flutter_application_1/routes.dart';
+import 'package:flutter_application_1/screens/Login_screen.dart';
 import 'package:flutter_application_1/screens/onboarding_page.dart';
 import 'package:provider/provider.dart';
 
@@ -14,6 +16,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => ThemeProvider(context)),
+        ChangeNotifierProvider(create: (_) => FlagsProvider())
       ],
       child: PMSNApp(),
     );
@@ -31,7 +34,8 @@ class PMSNApp extends StatelessWidget {
     return MaterialApp(
       theme: themeData,
       routes: getApplicationRoutes(),
-      home: OnboardingPage(),
+      home: LoginScreen(),
+      //home: OnboardingPage(),
     );
   }
 }

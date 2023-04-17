@@ -37,13 +37,103 @@ class PopularModel {
         originalTitle: map['originalTitle'],
         overview: map['overview'],
         popularity: map['popularity'],
-        posterPath: map['posterPath'],
-        releaseDate: map['releaseDate'],
+        posterPath: map['poster_path'],
+        releaseDate: map['release_date'],
         title: map['title'],
         video: map['video'],
-        voteAverage: (map['voteAverage'] is int)
-            ? (map['voteAverage'] as int).toDouble()
-            : map['voteAverage'],
-        voteCount: map['voteCount']);
+        voteAverage: (map['vote_average'] is int)
+            ? (map['vote_average'] as int).toDouble()
+            : map['vote_average'],
+        voteCount: map['vote_count']);
   }
 }
+
+class PopularCast {
+  PopularCast({
+    required this.adult,
+    required this.gender,
+    required this.id,
+    required this.knownForDepartment,
+    required this.name,
+    required this.originalName,
+    required this.popularity,
+    this.profilePath,
+    required this.castId,
+    required this.character,
+    required this.creditId,
+    required this.order,
+  });
+
+  bool adult;
+  int gender;
+  int id;
+  String knownForDepartment;
+  String name;
+  String originalName;
+  double popularity;
+  String? profilePath;
+  int castId;
+  String character;
+  String creditId;
+  int order;
+
+  factory PopularCast.fromMap(Map<String, dynamic> map) {
+    return PopularCast(
+      adult: map['adult'],
+      gender: map['gender'],
+      id: map['id'],
+      knownForDepartment: map['known_for_department'],
+      name: map['name'],
+      originalName: map['original_name'],
+      popularity: map['popularity'],
+      profilePath: map['profile_path'],
+      castId: map['cast_id'],
+      character: map['character'],
+      creditId: map['credit_id'],
+      order: map['order'],
+    );
+  }
+}
+
+class PopularTrailer {
+  PopularTrailer({
+    required this.iso6391,
+    required this.iso31661,
+    required this.name,
+    required this.key,
+    required this.site,
+    required this.size,
+    required this.type,
+    required this.official,
+    required this.publishedAt,
+    required this.id,
+  });
+
+  String iso6391;
+  String iso31661;
+  String name;
+  String key;
+  String site;
+  int size;
+  String type;
+  bool official;
+  String publishedAt;
+  String id;
+
+  factory PopularTrailer.fromMap(Map<String, dynamic> map) {
+    return PopularTrailer(
+      iso6391: map['iso_639_1'],
+      iso31661: map['iso_3166_1'],
+      name: map['name'],
+      key: map['key'],
+      site: map['site'],
+      size: map['size'],
+      type: map['type'],
+      official: map['official'],
+      publishedAt: map['published_at'],
+      id: map['id'],
+    );
+  }
+}
+
+

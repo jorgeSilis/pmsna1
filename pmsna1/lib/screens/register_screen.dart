@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/firebase/email_auth.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:social_login_buttons/social_login_buttons.dart';
 
@@ -13,8 +14,12 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
+  TextEditingController txtNameController = TextEditingController();
+  TextEditingController txtEmailController = TextEditingController();
+  TextEditingController txtPassController = TextEditingController();
   File? _image;
   final _formRegister = GlobalKey<FormState>();
+  EmailAuthClass? emailAuth;
 
   final CircleAvatar _circleAvatar = CircleAvatar(
     backgroundImage:
@@ -22,7 +27,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
     radius: 80,
   );
 
-  final txtName = TextFormField(
+  late final txtName = TextFormField(
+    controller: txtNameController,
     validator: (value) {
       if (value == null || value.isEmpty) {
         return 'Please enter your name';
@@ -33,9 +39,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
         label: Text("Full name"), border: OutlineInputBorder()),
   );
 
-  final txtEmail = TextFormField(
+  late final txtEmail = TextFormField(
+    controller: txtEmailController,
     validator: (value) {
-      if (value == null || value.isEmpty || EmailValidator.validate(value)==false) {
+      if (value == null ||
+          value.isEmpty ||
+          EmailValidator.validate(value) == false) {
         return 'Please verify your email';
       }
       return null;
@@ -44,7 +53,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
         label: Text("EMAIL USER"), border: OutlineInputBorder()),
   );
 
-  final txtPass = TextFormField(
+  late final txtPass = TextFormField(
+    controller: txtPassController,
     validator: (value) {
       if (value == null || value.isEmpty) {
         return 'Please enter password';
@@ -58,7 +68,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final horizontalSpace = const SizedBox(
     height: 10,
   );
-
   @override
   Widget build(BuildContext context) {
     final buttonRegister = TextButton(
@@ -71,8 +80,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
           // If the form is valid, display a snackbar. In the real world,
           // you'd often call a server or save the information in a database.
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Datos validados')),
+            const SnackBar(content: Text('Datos validados'))
           );
+          emailAuth?.createUserWithEmailAndPassword(
+              email: txtEmailController.text, password: txtPassController.text);
         }
       },
       child: Text('Become part of us!'),

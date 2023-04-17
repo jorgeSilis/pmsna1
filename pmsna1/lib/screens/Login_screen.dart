@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/responsive.dart';
+import 'package:flutter_application_1/screens/events_screen.dart';
 import 'package:flutter_application_1/screens/settings_screen.dart';
 import 'package:flutter_application_1/widgets/loading_modal_widget.dart';
 import 'package:social_login_buttons/social_login_buttons.dart';
@@ -71,14 +72,27 @@ class _LoginScreenState extends State<LoginScreen> {
     );
 
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => SettingsScreen()),
-          );
-        },
-        child: Icon(Icons.settings),
+      floatingActionButton: Column(
+        children: [
+          FloatingActionButton(
+            heroTag: "settings",
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => SettingsScreen()),
+              );
+            },
+            child: Icon(Icons.settings),
+          ),
+          SizedBox(height: 16),
+          FloatingActionButton(
+            heroTag: "events",
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => EventsScreen(),));
+            },
+            child: Icon(Icons.add),
+          ),
+        ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.miniStartTop,
       resizeToAvoidBottomInset: false,

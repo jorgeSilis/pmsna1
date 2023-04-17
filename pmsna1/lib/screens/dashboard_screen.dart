@@ -49,7 +49,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 trailing: Icon(Icons.chevron_right)),
             ListTile(
               onTap: () {
-                Navigator.pushNamed(context, 'popular');
+                Navigator.pushNamed(context, '/popular');
               },
               title: Text('API videos'),
               leading: Icon(Icons.movie),
