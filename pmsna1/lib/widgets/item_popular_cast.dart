@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:placeholder_images/placeholder_images.dart';
 
 import '../models/popular_model.dart';
 
@@ -31,8 +30,7 @@ class PopularCastItem extends StatelessWidget {
                 )
               : CircleAvatar(
                   maxRadius: 40,
-                  backgroundImage: NetworkImage(
-                      PlaceholderImage.getPlaceholderImageURL(model.name)),
+                  backgroundImage: NetworkImage('https://www.nicepng.com/png/detail/115-1150821_default-avatar-comments-sign-in-icon-png.png'),
                 ),
           Text(
             model.name,

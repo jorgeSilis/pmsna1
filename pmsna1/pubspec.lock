@@ -472,14 +472,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.11.1"
-  placeholder_images:
-    dependency: "direct main"
-    description:
-      name: placeholder_images
-      sha256: "5eb26d8ffcce4c7fdc50839cfcf8fc49bd46bacbaee7a64a18ea465f84a5771d"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.0.1"
   platform:
     dependency: transitive
     description:
