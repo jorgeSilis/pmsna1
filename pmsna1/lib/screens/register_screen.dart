@@ -77,14 +77,24 @@ class _RegisterScreenState extends State<RegisterScreen> {
       ),
       onPressed: () {
         if (_formRegister.currentState!.validate()) {
-          // If the form is valid, display a snackbar. In the real world,
-          // you'd often call a server or save the information in a database.
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Datos validados'))
-          );
-          emailAuth?.createUserWithEmailAndPassword(
-              email: txtEmailController.text, password: txtPassController.text);
+          print("Kek");
+          _image != null
+              ? emailAuth?.createUserWithEmailAndPassword(
+                  email: txtEmailController.text,
+                  password: txtPassController.text,
+                  name: txtNameController.text,
+                  photo: _image?.path)
+              : emailAuth?.createUserWithEmailAndPassword(
+                  email: txtEmailController.text,
+                  password: txtPassController.text,
+                  name: txtNameController.text);
+
+          print("Kek2");
+          ScaffoldMessenger.of(context)
+              .showSnackBar(const SnackBar(content: Text('Usuario registrado')));
         }
+        print("final kek");
+        Navigator.pop(context);
       },
       child: Text('Become part of us!'),
     );

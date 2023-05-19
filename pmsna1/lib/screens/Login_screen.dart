@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/firebase/email_auth.dart';
 import 'package:flutter_application_1/responsive.dart';
+import 'package:flutter_application_1/screens/dashboard_screen.dart';
 import 'package:flutter_application_1/screens/events_screen.dart';
 import 'package:flutter_application_1/screens/settings_screen.dart';
 import 'package:flutter_application_1/widgets/loading_modal_widget.dart';
@@ -13,14 +15,20 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  TextEditingController txtNameController = TextEditingController();
+  TextEditingController txtEmailController = TextEditingController();
+  TextEditingController txtPassController = TextEditingController();
   bool isLoading = false;
+  EmailAuthClass auth = EmailAuthClass();
 
-  final txtEmail = TextFormField(
+  late final txtEmail = TextFormField(
+    controller: txtEmailController,
     decoration: const InputDecoration(
         label: Text("EMAIL USER"), border: OutlineInputBorder()),
   );
 
-  final txtPass = TextFormField(
+  late final txtPass = TextFormField(
+    controller: txtPassController,
     decoration: const InputDecoration(
         label: Text("Password"), border: OutlineInputBorder()),
   );
@@ -59,15 +67,90 @@ class _LoginScreenState extends State<LoginScreen> {
     );
 
     final buttonlogging = SocialLoginButton(
+      //login BUTTON
       buttonType: SocialLoginButtonType.generalLogin,
       onPressed: () {
-        isLoading = true;
-        setState(() {});
+        auth
+            .signInWithEmailAndPassword(
+                email: txtEmailController.text,
+                password: txtPassController.text)
+            .then((value) {
+          if (value) {
+            isLoading = false;
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => DashboardScreen(
+                        userCredential: auth,
+                      )),
+            );
+          } else {
+            isLoading = false;
+            ScaffoldMessenger.of(context)
+                .showSnackBar(const SnackBar(content: Text('Error en login')));
+          }
+          //isLoading = true;
+          //setState(() {});
+          /*
         Future.delayed(Duration(milliseconds: 4000)).then((value) {
           isLoading = false;
           setState(() {});
           Navigator.pushNamed(context, '/dash');
+          */
         });
+        isLoading = false;
+      },
+    );
+
+    final googlebtn = SocialLoginButton(
+        buttonType: SocialLoginButtonType.google,
+        onPressed: () {
+          isLoading = true;
+          auth.signInWithGoogle().then((value) => {
+                if (value)
+                  {
+                    isLoading = false,
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => DashboardScreen(
+                                userCredential: auth,
+                              )),
+                    )
+                  }
+                else
+                  {
+                    isLoading = false,
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Error en login'))),
+                  }
+              });
+        });
+
+    final btnGithub = SocialLoginButton(
+      buttonType: SocialLoginButtonType.github,
+      onPressed: () {
+        isLoading = true;
+        auth.signInWithGitHub().then((value) => {
+              if (value)
+                {
+                  isLoading = false,
+                  //Navigator.pushNamed(context, '/dash', arguments: auth),
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => DashboardScreen(
+                              userCredential: auth,
+                            )),
+                  )
+                }
+              else
+                {
+                  isLoading = false,
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Error en login'))),
+                }
+            });
       },
     );
 
@@ -88,7 +171,11 @@ class _LoginScreenState extends State<LoginScreen> {
           FloatingActionButton(
             heroTag: "events",
             onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => EventsScreen(),));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => EventsScreen(),
+                  ));
             },
             child: Icon(Icons.add),
           ),

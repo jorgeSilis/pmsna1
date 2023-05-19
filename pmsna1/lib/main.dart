@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/provider/flags_provider.dart';
 import 'package:flutter_application_1/provider/theme_provider.dart';
@@ -6,7 +7,11 @@ import 'package:flutter_application_1/screens/Login_screen.dart';
 import 'package:flutter_application_1/screens/onboarding_page.dart';
 import 'package:provider/provider.dart';
 
-void main() => runApp(MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -34,8 +39,8 @@ class PMSNApp extends StatelessWidget {
     return MaterialApp(
       theme: themeData,
       routes: getApplicationRoutes(),
-      home: LoginScreen(),
-      //home: OnboardingPage(),
+      //home: LoginScreen(),
+      home: OnboardingPage(),
     );
   }
 }

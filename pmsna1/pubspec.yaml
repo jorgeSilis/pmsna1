@@ -49,10 +49,15 @@ dependencies:
   calendar_view: ^1.0.3
   http: ^0.13.5
   firebase_auth: ^4.3.0
-  firebase_core: ^2.8.0
   flutter_rating_bar: ^4.0.1
   youtube_player_flutter: ^8.1.2
   cached_network_image: ^3.2.3
+  firebase_storage: ^11.1.1
+  cloud_firestore: ^4.5.2
+  firebase_core: ^2.10.0
+  google_maps_flutter: ^2.2.6
+  circular_menu: ^2.0.1
+  google_sign_in: ^6.1.0
 
 
 dev_dependencies:
